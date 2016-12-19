@@ -1,11 +1,7 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const WebpackMd5Hash = require('webpack-md5-hash')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const BellOnBundlerErrorPlugin = require('bell-on-bundler-error-plugin')
 const webpack = require('webpack')
 const path = require('path')
-// local imports
-var projectPaths = require('./config/projectPaths')
 
 module.exports = {
   entry: {
@@ -19,21 +15,12 @@ module.exports = {
     filename: '[chunkhash].[id].[name].js'
   },
   module: {
-    loaders: [
-      {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        loader: ExtractTextPlugin.extract({
-          loader: 'css-loader?sourceMap'
-        })
-      },
+    rules: [
       {
         test: /\.js$/,
-        loaders: [
-          'babel-loader',
-        ],
+        loaders: 'babel-loader',
         exclude: /node_modules/
-      },
+      }
     ]
   },
   devtool: 'cheap-module-source-map',
@@ -43,23 +30,17 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new ExtractTextPlugin({
-      filename: 'bundle.css',
-      disable: false,
-      allChunks: true
-    }),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest'] // Specify the common bundle's name.
     }),
     new HtmlWebpackPlugin({
-      template: path.join(projectPaths.sourceDir, 'server/views/template.html'),
-      filename: path.join(projectPaths.buildDir, 'index.html'),
+      template: './src/server/views/template.html',
+      filename: 'index.html',
     }),
     new WebpackMd5Hash(),
-    new BellOnBundlerErrorPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: true
+        warnings: false
       }
     })
   ]

@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:client": "webpack --config client.webpack.js",
+    "build:server": "webpack --config server.webpack.js",
+    "build:local": "webpack --config local.client.webpack.js",
+    "clean": "rm -rf build",
+    "dev": "webpack-dev-server --config local.client.webpack.js"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +21,6 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-1": "^6.16.0",
     "babel-preset-stage-2": "^6.13.0",
-    "bell-on-bundler-error-plugin": "^1.0.8",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "html-webpack-plugin": "^2.24.1",

@@ -1,6 +1,9 @@
 import React from 'react'
-import styles from './styles.css'
+import { titleBlue } from './styles.js'
 
-const Title = () => <div className={styles.titleBlue}>Hello New World</div>
+const Title = () => {
+  return (
+    <div style={titleBlue}>Hello World</div>)
+}
 
 export default Title
